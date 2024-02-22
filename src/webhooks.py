@@ -9,6 +9,7 @@ req = requests.get(webook_url)
 
 push_events = []
 pull_request_events = []
+other_events = []
 
 most_recent_push_time = None
 pull_request_number = None
@@ -34,6 +35,8 @@ if req.status_code == 200:
             pull_request_events.append(event)
         elif "pusher" in event:
             push_events.append(event)
+        else:
+            other_events.append(event)
         
     for push in push_events:
         # Extract the most recent push event
@@ -70,3 +73,5 @@ if req.status_code == 200:
         json.dump(pull_request_events, f, indent=4)
     with open(push_output_file_path, 'w') as f:
         json.dump(push_events, f, indent=4)
+    with open(push_output_file_path, 'w') as f:
+        json.dump(other_events, f, indent=4)
