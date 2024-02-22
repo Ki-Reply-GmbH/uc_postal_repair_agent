@@ -43,18 +43,23 @@ if req.status_code == 200:
         push_time_str = push["head_commit"]["timestamp"]
         push_time = datetime.strptime(push_time_str, "%Y-%m-%dT%H:%M:%S%z")
 
-        if most_recent_push_time is None:
+        if most_recent_push_time == "" or most_recent_push_time is None:
             most_recent_push_time = push_time
-        elif push_time > most_recent_push_time:
+        else:
+            most_recent_push_time = datetime.strptime(most_recent_push_time,
+                                                      "%Y-%m-%d %H:%M:%S%z")
+        if push_time > most_recent_push_time:
             most_recent_push_time = push_time
     
     for pull_request in pull_request_events:
         # Extract the most recent pull request number
         pull_request_number = pull_request["number"]
 
-        if pull_request_number is None:
+        if pull_request_number == "" or pull_request_number is None:
             pull_request_number = pull_request["number"]
-        elif pull_request_number > pull_request["number"]:
+        else:
+            pull_request_number = int(pull_request_number)
+        if pull_request_number > pull_request["number"]:
             pull_request_number = pull_request["number"]
 
     # Write the most recent push time and pull request number to a CSV file
