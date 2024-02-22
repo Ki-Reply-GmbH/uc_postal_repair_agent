@@ -67,11 +67,12 @@ if req.status_code == 200:
     current_dir_path = os.path.dirname(os.path.abspath(__file__))
     pull_req_output_file_path = os.path.join(current_dir_path, 'out_pull_req.json')
     push_output_file_path = os.path.join(current_dir_path, 'out_push.json')
+    other_output_file_path = os.path.join(current_dir_path, 'out_push.json')
 
     # Write the data to the file
     with open(pull_req_output_file_path, 'w') as f:
         json.dump(pull_request_events, f, indent=4)
     with open(push_output_file_path, 'w') as f:
         json.dump(push_events, f, indent=4)
-    with open(push_output_file_path, 'w') as f:
+    with open(other_output_file_path, 'w') as f:
         json.dump(other_events, f, indent=4)
