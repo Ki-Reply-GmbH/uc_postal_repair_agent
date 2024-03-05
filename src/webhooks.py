@@ -10,8 +10,9 @@ data = response.json()
 # Filter the check_run messages
 check_run_messages = [item for item in data if "check_run" in item]
 
-# Filter the failed check_run messages
-failed_check_run_messages = [item for item in check_run_messages if item["check_run"]["conclusion"] == "failure"]
+# Filter failed check_run messages and ignore organzation check_run messages
+failed_check_run_messages = [item for item in check_run_messages if 
+                             item["check_run"]["conclusion"] == "failure"]
 
 # Write the failed check_run messages to a JSON file
 with open("failed_check_runs.json", "w") as f:
