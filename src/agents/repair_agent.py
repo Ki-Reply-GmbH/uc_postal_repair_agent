@@ -17,7 +17,7 @@ class RepairAgent:
         return tasks
     
     def _find_file(path, file_name, file_content):
-        for root, dirs, files in os.walk(path):
+        for root, _, files in os.walk(path):
             if file_name in files:
                 with open(os.path.join(root, file_name), "r") as file:
                     if file_content in file.read():
