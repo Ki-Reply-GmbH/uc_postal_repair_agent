@@ -25,7 +25,7 @@ class LLModel:
         messages = [
             {
                 "role": "system",
-                "content": "You are a system designed to solve GitHub merge conflicts.",
+                "content": "You are a system designed to find and correct errors in a CI/CD pipeline.",
             },
             {"role": "user", "content": prompt},
         ]
