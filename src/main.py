@@ -19,4 +19,4 @@ ag = RepairAgent(
 
 print("Log:\n", ag._failed_log)
 print("Task:")
-print(ag.make_tasks())
+print(ag._tasks)

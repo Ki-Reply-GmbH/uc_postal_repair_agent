@@ -32,9 +32,10 @@ examples:
 1. Search for the relevant information that describes the cause of the error.
 2. Identify the file in which the error is caused and which need to be \
 corrected.
-3. Return a Json file with the keys "explanation" and "file".\
-The cause of the error (str), as described in 2., should be in "Explanation". \
-The file  that caused the error should be in "file".
+3. Return a Json file with the keys "explanation", "error_area" and "file".
+The cause of the error (str), as described in 1., should be in "Explanation".
+The lines of code that are causing the error (str), should be in "error_area".
+The file (str) that caused the error should be in "file".
 
 Log:
 {log}
