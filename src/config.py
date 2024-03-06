@@ -21,6 +21,7 @@ logging.basicConfig(level=os.environ.get("LOG_LEVEL", "INFO"))
 @dataclass
 class PromptConfig:
     def __init__(self):
+        self.log_prompt = log_prompt
         self.repair_prompt = repair_prompt
         self.commit_prompt = commit_prompt
 

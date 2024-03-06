@@ -8,4 +8,8 @@ class RepairAgent:
         self._failed_log = failed_log #Currently a failing GitHub Actions workflow run
 
     def make_tasks(self):
-        pass
+        tasks = self._model.get_completion(
+            self._prompts.log_prompt,
+            "json_object"
+            )
+        return tasks
