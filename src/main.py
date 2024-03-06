@@ -8,8 +8,6 @@ from models import LLModel
 events = json.loads(open("failed_check_runs.json").read())
 
 infos = EventHandler(events[0])
-print("Log:\n", infos.get_log())
-print("Task:")
 ag = RepairAgent(
     PromptConfig(),
     LLModel(
@@ -19,4 +17,6 @@ ag = RepairAgent(
     infos.get_log()
     )
 
+print("Log:\n", ag._failed_log)
+print("Task:")
 print(ag.make_tasks())
