@@ -54,3 +54,11 @@ class RepairAgent:
             ),
             "str"
         )
+
+    def make_commit_msg(self):
+        return self._model.get_completion(
+            self._prompts.commit_prompt.format(
+                information=str(self._tasks)
+            ),
+            "str"
+        )

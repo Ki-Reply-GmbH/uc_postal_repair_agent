@@ -63,11 +63,15 @@ Source Code:
 """
 
 commit_prompt = """\
-I want you to act as a GitHub commit message generator.
-Summarize the following explanations in 3-10 words. The summary should contain \
-the most important information from each individual declaration.
-Do not write any explanations or other words, just reply with the commit \
-message.\n
+You will receive relevant information about the error. The error description \
+and the source code that triggered the error. The error was already corrected \
+in a previous LLM call. Compose a GitHub commit message based on this \
+information.
+Do not use formatting characters in your answer. Your answer should be used \
+directly as a GitHub commit message without any further formatting.
+
+Relevant information:
+{information}
 """
 
 

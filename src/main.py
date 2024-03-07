@@ -54,3 +54,13 @@ print(file_path)
 
 ag.repair_file(file_path)
 print("Response:\n", ag.get_response())
+
+# Korrigierte Datei schreiben, commiten und pushen
+gh.write_responses(
+    [file_path],
+    [ag.get_response()]
+    )
+gh.commit_and_push(
+    [file_path],
+    ag.make_commit_msg()
+)
