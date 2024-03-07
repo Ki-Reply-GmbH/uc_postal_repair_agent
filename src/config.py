@@ -42,7 +42,24 @@ Log:
 """
 
 repair_prompt = """\
-TODO: This is a placeholder for the repair prompt.
+You will receive the complete source code of a file that has errors. In a \
+previous LLM call, the cause of the error was analyzed and the area of the \
+error was narrowed down. You will receive all this information separated from \
+each other with ####. Correct the source code using the additional information.\
+Return only the source code and no other information. Do not use formatting \
+characters in your answer. Your answer should be written directly to a file \
+and consist exclusively of interpretable or compilable source code.
+
+####
+Explanation:
+{explanation}
+####
+Error Area:
+{error_area}
+####
+Source Code:
+{source_code}
+####
 """
 
 commit_prompt = """\

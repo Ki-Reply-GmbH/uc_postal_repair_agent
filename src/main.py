@@ -51,3 +51,6 @@ file_path = ag.find_file(
     ag.get_error_area()
     )
 print(file_path)
+
+ag.repair_file(file_path)
+print("Response:\n", ag.get_response())
