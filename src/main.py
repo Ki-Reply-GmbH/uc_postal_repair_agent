@@ -60,7 +60,13 @@ gh.write_responses(
     [file_path],
     [ag.get_response()]
     )
+commit_msg = ag.make_commit_msg()
 gh.commit_and_push(
     [file_path],
-    ag.make_commit_msg()
+    commit_msg
+)
+
+gh.create_pull_request(
+    "Repairing broken CI/CD pipeline",
+    commit_msg
 )

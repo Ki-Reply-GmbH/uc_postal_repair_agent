@@ -5,9 +5,11 @@ The GitHandler class initializes and clones repositories and creates a
 feature branch.
 """
 import os
-from git import Repo
 import shutil
 import stat
+import requests
+import json
+from git import Repo
 from datetime import datetime
 from uuid import uuid4
 
@@ -118,3 +120,33 @@ class GitHandler:
             with open(os.path.join(cls._tmp_path, file_path), 'w') as file:
                 print("Writing to " + os.path.join(cls._tmp_path, file_path))
                 file.write(responses[i])
+    
+    @classmethod
+    def create_pull_request(cls, title: str, body: str):
+        data = {
+            "title": title,
+            "body": body,
+            "head": cls._unique_feature_branch_name,  # The name of the branch where your changes are implemented
+            "base": cls._branch                       # The name of the branch you want the changes pulled into
+        }
+        url = "https://api.github.com/repos/{owner}/{repo}/pulls".format(
+            owner=cls._owner,
+            repo=cls._repo_name
+        )
+        headers = {
+            "Content-type": "application/json",
+            "Accept": "application/json",
+            "Authorization": "token {token}".format(token=cls._token)
+        }
+        resp = requests.post(url, data=json.dumps(data), headers=headers)
+
+        print("owner: " + cls._owner)
+        print("repo_name: " + cls._repo_name)
+        print("token: " + cls._token)
+        print("url: " + url)
+
+        if resp.status_code == 201:
+            return resp.json()
+        else:
+            print(f"Request failed with status code {resp.status_code}")
+            return resp.text
