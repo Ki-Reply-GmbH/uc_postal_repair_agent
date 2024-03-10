@@ -1,8 +1,10 @@
-#
-# This code is protected by intellectual property rights.
-# Dr. Ing. h.c. F. Porsche AG owns exclusive rights of use.
-# © 2019-2023, Dr. Ing. h.c. F. Porsche AG.
-#
+"""
+This module provides the Config class which is used to manage configuration 
+settings.
+
+The Config class loads configuration settings from environment variables and 
+provides methods to access these settings.
+"""
 
 import logging
 import os
@@ -20,6 +22,14 @@ logging.basicConfig(level=os.environ.get("LOG_LEVEL", "INFO"))
 
 @dataclass
 class PromptConfig:
+    """
+    This class is used to manage the prompts used in the application.
+
+    Attributes:
+        log_prompt (str): The prompt used for logging.
+        repair_prompt (str): The prompt used for repairing.
+        commit_prompt (str): The prompt used for committing.
+    """
     def __init__(self):
         self.log_prompt = log_prompt
         self.repair_prompt = repair_prompt
@@ -77,9 +87,29 @@ Relevant information:
 
 @dataclass
 class Config:
+    """
+    The Config class is responsible for managing configuration settings.
+
+    This class loads configuration settings from environment variables and 
+    provides methods to access these settings.
+
+    Attributes:
+        OPENAI_API_KEY (str): The API key for OpenAI.
+        LLM_MODEL_NAME (str): The name of the language model to use.
+        LLM_TEMPERATURE (float): The temperature setting for the language model.
+        GITHUB_TOKEN (str): The access token for GitHub.
+        GIT_USER (str): The username for GitHub.
+        GIT_EMAIL (str): The email for GitHub.
+        REPO_OWNER (str): The owner of the repository.
+        REPO_NAME (str): The name of the repository.
+        MAIN_BRANCH (str): The main branch of the repository.
+    """
     _instance = None
 
     def __init__(self):
+        """
+        Initializes a Config and loads settings from environment variables.
+        """
         ####################
         # Cache CONFIG
         ####################
