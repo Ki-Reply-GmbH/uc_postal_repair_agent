@@ -14,6 +14,24 @@ from datetime import datetime
 from uuid import uuid4
 
 class GitHandler:
+    """
+    The GitHandler class provides methods for handling git operations.
+
+    This class provides methods for initializing and cloning repositories, 
+    creating a feature branch, cleaning up the temporary directory, committing 
+    and pushing changes, writing responses back to files, and creating pull 
+    requests.
+
+    Attributes:
+        _tmp_path (str): The path to the temporary directory.
+        _repo (git.Repo): The cloned repository.
+        _owner (str): The owner of the repository.
+        _token (str): The git access token used to interact with the repository.
+        _repo_name (str): The name of the repository.
+        _branch (str): The name of the branch.
+        _feature_branch (git.Head): The feature branch.
+        _unique_feature_branch_name (str): The unique name of the feature branch.
+    """
     _tmp_path = None
     _repo = None
     _owner = ""
@@ -35,6 +53,19 @@ class GitHandler:
         token: str,
         repo_name: str
         ):
+        """
+        Initializes the GitHandler class with the provided parameters.
+
+        This method sets the _branch, _git_user, _owner, _token, and _repo_name
+        attributes and creates a temporary directory.
+
+        Args:
+            branch (str): The name of the branch.
+            git_user (str): The username of the git user.
+            owner (str): The owner of the repository.
+            token (str): The access token for the repository.
+            repo_name (str): The name of the repository.
+        """
         project_root_dir = os.path.dirname(
             os.path.dirname(
                 os.path.dirname(
@@ -52,6 +83,13 @@ class GitHandler:
 
     @classmethod
     def clone(cls):
+        """
+        Clones the repository and creates a feature branch.
+
+        This method clones the repository from the provided URL, checks out the
+        branch, creates a unique feature branch name, creates the feature 
+        branch, and checks out the feature branch.
+        """
         cls._repo = Repo.clone_from(
             "https://{git_username}:{git_access_token}@github.com/{owner}/{repo}.git".format(
                 git_username=cls._git_user,
@@ -123,6 +161,17 @@ class GitHandler:
     
     @classmethod
     def create_pull_request(cls, title: str, body: str):
+        """
+        Creates a pull request on GitHub.
+
+        This method uses the GitHub API to create a pull request with the 
+        provided title and body. The pull request is created from the feature 
+        branch to the main branch.
+
+        Args:
+            title (str): The title of the pull request.
+            body (str): The body of the pull request.
+        """
         data = {
             "title": title,
             "body": body,
