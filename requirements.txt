@@ -3,3 +3,5 @@ openai==1.13.3
 pandas==2.2.1
 python-dotenv==1.0.1
 Requests==2.31.0
+pytest==6.2.5
+pytest-mock==3.12.0
