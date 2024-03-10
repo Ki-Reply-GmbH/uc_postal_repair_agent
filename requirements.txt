@@ -1,0 +1,5 @@
+GitPython==3.1.42
+openai==1.13.3
+pandas==2.2.1
+python-dotenv==1.0.1
+Requests==2.31.0
