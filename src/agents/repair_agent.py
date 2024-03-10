@@ -56,7 +56,7 @@ class RepairAgent:
         log. Also generates tasks and sets the initial response to an empty 
         string.
 
-        Parameters:
+        Args:
         prompts (PromptConfig): An instance of PromptConfig that contains the 
                                 prompts for the language model.
         model (LLModel): An instance of LLModel that is the language model used
