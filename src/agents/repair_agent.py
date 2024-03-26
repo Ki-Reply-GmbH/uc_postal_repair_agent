@@ -5,6 +5,7 @@ based on a failed log, find the file with the error, repair the file, and
 generate a commit message.
 """
 import os
+import yaml
 from config import PromptConfig
 from models import LLModel
 
@@ -175,3 +176,21 @@ class RepairAgent:
             ),
             "str"
         )
+    
+    def _extract_jobs_from_github_actions(self, file_paths):
+        """
+        Extracts jobs from the provided YAML files.
+
+        Parameters:
+        file_paths (list): The list of file paths to the YAML files.
+
+        Returns:
+        dict: A dictionary where the keys are the file paths and the values are lists of jobs.
+        """
+        jobs_dict = {}
+        for file_path in file_paths:
+            with open(file_path, "r") as file:
+                yaml_file = yaml.safe_load(file)
+                if "jobs" in yaml_file:
+                    jobs_dict[file_path] = list(yaml_file["jobs"].keys())
+        return jobs_dict

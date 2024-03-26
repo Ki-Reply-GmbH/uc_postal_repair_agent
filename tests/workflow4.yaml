@@ -1,0 +1,23 @@
+name: Workflow 4
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Test
+      uses: actions/setup-python@v2
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy
+      uses: actions/setup-node@v2
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Cleanup
+      uses: actions/setup-node@v2
