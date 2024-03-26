@@ -178,19 +178,16 @@ class RepairAgent:
         )
     
     def _extract_jobs_from_github_actions(self, file_paths):
-        """
-        Extracts jobs from the provided YAML files.
-
-        Parameters:
-        file_paths (list): The list of file paths to the YAML files.
-
-        Returns:
-        dict: A dictionary where the keys are the file paths and the values are lists of jobs.
-        """
         jobs_dict = {}
         for file_path in file_paths:
-            with open(file_path, "r") as file:
-                yaml_file = yaml.safe_load(file)
-                if "jobs" in yaml_file:
-                    jobs_dict[file_path] = list(yaml_file["jobs"].keys())
+            with open(file_path, "r") as stream:
+                try:
+                    workflow = yaml.safe_load(stream)
+                except yaml.YAMLError as exc:
+                    print(exc)
+
+            jobs_dict[file_path] = {}
+            for job_name, job_properties in workflow.get("jobs", {}).items():
+                jobs_dict[file_path][job_name] = job_properties
+
         return jobs_dict

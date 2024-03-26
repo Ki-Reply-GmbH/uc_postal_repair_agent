@@ -7,6 +7,8 @@ from utils.cache import DisabledCache
 from config import Config, PromptConfig
 from models import LLModel
 
+import pprint
+
 def main():
     # Arguments
     git_user = os.environ["GIT_USERNAME"]
@@ -43,7 +45,7 @@ def main():
         ),
         infos.get_log()
     )
-
+    """
     # Find file and repair
     file_path = ag.find_file(
         gh.get_tmp_path(),
@@ -68,6 +70,15 @@ def main():
         "Repairing broken CI/CD pipeline",
         commit_msg
     )
+    """
+    workflows = [
+        "C:\\Users\\t.kubera\\dev\\dhl\\uc_postal_repair_agent\\tests\\workflow1.yaml",
+        "C:\\Users\\t.kubera\\dev\\dhl\\uc_postal_repair_agent\\tests\\workflow2.yaml",
+        "C:\\Users\\t.kubera\\dev\\dhl\\uc_postal_repair_agent\\tests\\workflow3.yaml",
+        "C:\\Users\\t.kubera\\dev\\dhl\\uc_postal_repair_agent\\tests\\workflow4.yaml"
+    ]
+    jobs = ag._extract_jobs_from_github_actions(workflows)
+    pprint.pprint(jobs)
 
 if __name__ == "__main__":
     main()
